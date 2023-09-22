@@ -1,0 +1,20 @@
+<% layout('./layouts/layout.eta') %>
+
+<div class="card">
+<h1>Shopping Lists</h1>
+<form method="post" action="/lists">
+  <input type="text" name="name" placeholder="List name" />
+  <button type="submit">Add List</button>
+</form>
+<ul>
+  <% it.activeLists.forEach(list => { %>
+    <li class="flex-container listitem">
+      <a class="custom-text" href="/lists/<%= list.id %>"><%= list.name %></a>
+      <form method="post" action="/lists/<%= list.id %>/deactivate">
+        <button type="submit">Deactivate</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<a href="/">Main Page</a>
+</div>

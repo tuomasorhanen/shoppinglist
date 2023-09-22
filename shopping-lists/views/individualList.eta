@@ -1,0 +1,24 @@
+<% layout('./layouts/layout.eta') %>
+
+<div class="card">
+<h1><%= it.shoppingList.name %></h1>
+<form method="post" action="/lists/<%= it.shoppingList.id %>/items">
+  <input type="text" name="item" placeholder="Item name" />
+  <button type="submit">Add Item</button>
+</form>
+<ul>
+  <% it.items.forEach(item => { %>
+    <li class="flex-container listitem">
+      <% if(item.collected) { %>
+        <del><%= item.name %></del>
+      <% } else { %>
+        <%= item.name %>
+      <% } %>
+      <form method="post" action="/lists/<%= it.shoppingList.id %>/items/<%= item.id %>/collect">
+        <button type="submit">Collected</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<a href="/lists">Lists</a>
+</div>
