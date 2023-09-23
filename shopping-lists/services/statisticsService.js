@@ -1,12 +1,12 @@
-import { sql } from "../database/database.js";
+import { executeQuery } from "../database/database.js";
 
 const getStatistics = async () => {
-  const shoppingListCount = await sql`SELECT COUNT(*) as count FROM shopping_lists`;
-  const shoppingListItemCount = await sql`SELECT COUNT(*) as count FROM shopping_list_items`;
+  const shoppingListCountResult = await executeQuery("SELECT COUNT(*) as count FROM shopping_lists");
+  const shoppingListItemCountResult = await executeQuery("SELECT COUNT(*) as count FROM shopping_list_items");
 
   return {
-    shoppingListsCount: shoppingListCount[0]?.count || 0,
-    shoppingListItemsCount: shoppingListItemCount[0]?.count || 0,
+    shoppingListsCount: shoppingListCountResult.rows[0]?.count || 0,
+    shoppingListItemsCount: shoppingListItemCountResult.rows[0]?.count || 0,
   };
 };
 
