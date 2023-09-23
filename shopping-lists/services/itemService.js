@@ -1,25 +1,25 @@
-import { executeQuery } from "../database/database.js";
+import { sql } from "../database/database.js";
 
 const getItemsByListId = async (id) => {
   return await getItemsByListIdOrdered(id);
 };
 
 const addItemToList = async (listId, itemName) => {
-  await executeQuery(
+  await sql(
     "INSERT INTO shopping_list_items (name, shopping_list_id) VALUES ($name, $listId)", 
     { name: itemName, listId }
   );
 };
 
 const markItemCollected = async (itemId) => {
-  await executeQuery(
+  await sql(
     "UPDATE shopping_list_items SET collected = true WHERE id = $itemId", 
     { itemId }
   );
 };
 
 const getItemsByListIdOrdered = async (id) => {
-  const result = await executeQuery(
+  const result = await sql(
     "SELECT * FROM shopping_list_items WHERE shopping_list_id = $id ORDER BY collected ASC, name ASC",
     { id }
   );
@@ -27,7 +27,7 @@ const getItemsByListIdOrdered = async (id) => {
 };
 
 const getShoppingListById = async (id) => {
-  const result = await executeQuery(
+  const result = await sql(
     "SELECT * FROM shopping_lists WHERE id = $id", 
     { id }
   );
