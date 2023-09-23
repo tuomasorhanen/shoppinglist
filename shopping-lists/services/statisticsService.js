@@ -1,3 +1,5 @@
+import { executeQuery } from "../database/database.js";
+
 const getStatistics = async () => {
   let shoppingListsCount = 0;
   let shoppingListItemsCount = 0;
@@ -23,6 +25,4 @@ const getStatistics = async () => {
     shoppingListItemsCount,
   };
 };
-
-
 export { getStatistics };
