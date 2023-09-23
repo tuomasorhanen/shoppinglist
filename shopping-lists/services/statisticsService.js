@@ -1,4 +1,6 @@
 import { executeQuery } from "../database/database.js";
+import { sql } from "../database/database.js";
+
 
 const getStatistics = async () => {
   const shoppingListCount = await executeQuery(sql`SELECT COUNT(*) as count FROM shopping_lists`);

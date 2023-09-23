@@ -1,4 +1,6 @@
 import { executeQuery } from "../database/database.js";
+import { sql } from "../database/database.js";
+
 
 const getActiveShoppingLists = async () => {
   const result = await executeQuery(sql`SELECT * FROM shopping_lists WHERE active = true`);

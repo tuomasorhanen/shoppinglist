@@ -1,4 +1,6 @@
 import { executeQuery } from "../database/database.js";
+import { sql } from "../database/database.js";
+
 
 const getItemsByListId = async (id) => {
   return await getItemsByListIdOrdered(id);
