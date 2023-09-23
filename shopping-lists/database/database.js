@@ -1,24 +1,12 @@
-import { postgres } from "../deps.js";
+import { Pool, postgres } from "../deps.js";
 
-let sql;
+const CONCURRENT_CONNECTIONS = 2;
+
+let connectionPool;
 if (Deno.env.get("DATABASE_URL")) {
-  sql = postgres(Deno.env.get("DATABASE_URL"));
+  connectionPool = new Pool({ connectionString: Deno.env.get("DATABASE_URL") }, CONCURRENT_CONNECTIONS);
 } else {
-  sql = postgres({});
+  connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
 }
 
-const executeQuery = async (query, params) => {
-  const response = {};
-  try {
-    const result = await sql.queryObject({ text: query, args: params });
-    if (result && result.rows) {
-      response.rows = result.rows;
-    }
-  } catch (e) {
-    response.error = e;
-  }
-
-  return response;
-};
-
-export { sql, executeQuery };
+export { connectionPool as sql };
