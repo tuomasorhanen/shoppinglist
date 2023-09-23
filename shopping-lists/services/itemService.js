@@ -5,32 +5,20 @@ const getItemsByListId = async (id) => {
 };
 
 const addItemToList = async (listId, itemName) => {
-  await sql(
-    "INSERT INTO shopping_list_items (name, shopping_list_id) VALUES ($name, $listId)", 
-    { name: itemName, listId }
-  );
+  await sql`INSERT INTO shopping_list_items (name, shopping_list_id) VALUES (${itemName}, ${listId})`;
 };
 
 const markItemCollected = async (itemId) => {
-  await sql(
-    "UPDATE shopping_list_items SET collected = true WHERE id = $itemId", 
-    { itemId }
-  );
+  await sql`UPDATE shopping_list_items SET collected = true WHERE id = ${itemId}`;
 };
 
 const getItemsByListIdOrdered = async (id) => {
-  const result = await sql(
-    "SELECT * FROM shopping_list_items WHERE shopping_list_id = $id ORDER BY collected ASC, name ASC",
-    { id }
-  );
+  const result = await sql`SELECT * FROM shopping_list_items WHERE shopping_list_id = ${id} ORDER BY collected ASC, name ASC`;
   return result.rows;
 };
 
 const getShoppingListById = async (id) => {
-  const result = await sql(
-    "SELECT * FROM shopping_lists WHERE id = $id", 
-    { id }
-  );
+  const result = await sql`SELECT * FROM shopping_lists WHERE id = ${id}`;
   return result.rows[0];
 };
 
