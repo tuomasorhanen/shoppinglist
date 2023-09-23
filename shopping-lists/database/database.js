@@ -11,14 +11,21 @@ if (Deno.env.get("DATABASE_URL")) {
 } else {
   connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
 }
-
 const executeQuery = async (query, params) => {
   const response = {};
   let client;
 
+  console.log('DATABASE_URL:', Deno.env.get("DATABASE_URL"));  // Debugging environment variable
+  console.log('SQL initialized as:', sql);  // Debugging sql
+  console.log('Connection Pool initialized as:', connectionPool);  // Debugging connection pool
+  
   try {
     if (sql) {
+      const testResult = await sql.query('SELECT 1;');  // Debugging with a test query
+      console.log('Test Query Result:', testResult);
+
       console.log(`Executing query with sql: ${query}`);
+      console.log('Query Parameters:', params);  // Debugging query parameters
       const result = await sql.query(query, params);
       if (result.rows) {
         response.rows = result.rows;
