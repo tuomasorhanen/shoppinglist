@@ -19,7 +19,7 @@ const executeQuery = async (query, params) => {
   try {
     if (sql) {
       console.log(`Executing query with sql: ${query}`);
-      const result = await sql.query(query, ...params);
+      const result = await sql.query(query, params);
       if (result.rows) {
         response.rows = result.rows;
       }
