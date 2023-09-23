@@ -1,35 +1,37 @@
-import { serve } from "https://deno.land/std@0.171.0/http/server.ts";
-import { configure } from "https://deno.land/x/eta@v2.0.0/mod.ts";
-import * as indexController from "./controllers/indexController.js";
-import * as listController from "./controllers/listController.js";
-import * as itemController from "./controllers/itemController.js";
+import { serve } from "./deps.js";
+import { configure, renderFile } from "./deps.js";
+import { sql } from "./database/database.js";
 
 configure({
   views: `${Deno.cwd()}/views/`,
 });
 
-const handleRequest = async (request) => {
-  const url = new URL(request.url);
-
-  if (url.pathname === "/" && request.method === "GET") {
-    return await indexController.viewIndexPage(request);
-  } else if (url.pathname === "/lists" && request.method === "GET") {
-    return await listController.viewActiveShoppingLists(request);
-  } else if (url.pathname === "/lists" && request.method === "POST") {
-    return await listController.addNewShoppingList(request);
-  } else if (url.pathname.startsWith("/lists") && url.pathname.endsWith("/deactivate") && request.method === "POST") {
-    const id = url.pathname.split('/')[2];
-    return await listController.deactivateShoppingList(id);
-  } else if (url.pathname.startsWith("/lists/") && request.method === "GET") {
-    const id = url.pathname.split('/')[2];
-    return await itemController.viewIndividualList(id);
-  } else if (url.pathname.startsWith("/lists/") && url.pathname.endsWith("/items") && request.method === "POST") {
-    return await itemController.addNewItemToList(request);
-  } else if (url.pathname.startsWith("/lists/") && url.pathname.endsWith("/collect") && request.method === "POST") {
-    return await itemController.markItemAsCollected(request);
-  }
-  
-    return new Response("Not found", { status: 404 });
+const responseDetails = {
+  headers: { "Content-Type": "text/html;charset=UTF-8" },
 };
 
-await serve(handleRequest, { port: 7777 });
+const data = {
+  count: 0,
+};
+
+const handleRequest = async (request) => {
+  const url = new URL(request.url);
+  if (url.pathname === "/count") {
+    data.count++;
+    return new Response(await renderFile("count.eta", data), responseDetails);
+  }
+
+  if (url.pathname === "/") {
+    const rows = await sql`SELECT COUNT(*) as count FROM shopping-lists`;
+    let rowCount = -42;
+    if (rows.length > 0) {
+      rowCount = rows[0].count;
+    }
+
+    return new Response(`Total rows: ${rowCount}`);
+  }
+
+  return new Response("Hello you!");
+};
+
+serve(handleRequest, { port: 7777 });
