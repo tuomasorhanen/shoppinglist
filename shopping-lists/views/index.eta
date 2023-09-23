@@ -1,14 +1,13 @@
 <% layout('./layouts/layout.eta') %>
 
-<div class="card">
-<h1>Shared shopping lists</h1>
+<h1 class="text-2xl text-center">Shared shopping lists</h1>
 <% if (it.shoppingListsCount === 0) { %>
   <p>No shopping lists yet.</p>
 <% } else { %>
-  <ul>
-    <li class="listitem">Shopping lists: <%= it.shoppingListsCount %></li>
-    <li class="listitem">Shopping list items: <%= it.shoppingListItemsCount %></li>
+  <ul class="py-4">
+    <li class="border border-blue-400 rounded-lg py-1 px-2 shadow-md shadow-gray-500">Shopping lists: <%= it.shoppingListsCount %></li>
+    <li class="mt-4 border border-blue-400 rounded-lg py-1 px-2 shadow-md shadow-gray-500">Shopping list items: <%= it.shoppingListItemsCount %></li>
   </ul>
 <% } %>
-<a href="/lists">Lists</a>
-</div>
+<a href="/lists" class="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 rounded-lg shadow-md shadow-gray-500 py-2 px-4 text-white">Lists</a>
+

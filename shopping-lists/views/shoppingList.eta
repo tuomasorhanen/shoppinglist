@@ -1,20 +1,18 @@
 <% layout('./layouts/layout.eta') %>
 
-<div class="card">
-<h1>Shopping Lists</h1>
-<form method="post" action="/lists">
-  <input type="text" name="name" placeholder="List name" />
-  <button type="submit">Add List</button>
+<h1 class="text-2xl text-center">Shopping Lists</h1>
+<form method="post" action="/lists" class="my-4 border border-blue-400 rounded-lg py-1 px-2 shadow-md shadow-gray-500">
+  <input type="text" name="name" placeholder="List name" class="" />
+  <button type="submit" class=" ">Add List</button>
 </form>
-<ul>
+<ul class="pb-4">
   <% it.activeLists.forEach(list => { %>
-    <li class="flex-container listitem">
-      <a class="custom-text" href="/lists/<%= list.id %>"><%= list.name %></a>
+    <li class="mb-1 flex justify-between items-center border border-blue-400 rounded-lg py-1 px-2 shadow-md shadow-gray-500">
+      <a class="" href="/lists/<%= list.id %>"><%= list.name %></a>
       <form method="post" action="/lists/<%= list.id %>/deactivate">
-        <button type="submit">Deactivate</button>
+        <button type="submit" class="text-red-500">Deactivate</button>
       </form>
     </li>
   <% }) %>
 </ul>
-<a href="/">Main Page</a>
-</div>
+<a href="/" class="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 rounded-lg shadow-md shadow-gray-500 py-2 px-4 text-white">Main Page</a>

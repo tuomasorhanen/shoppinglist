@@ -6,12 +6,11 @@ const getActiveShoppingLists = async () => {
 };
 
 const addNewShoppingList = async (name) => {
-  await executeQuery("INSERT INTO shopping_lists (name) VALUES ($1)", [name]);
+  await executeQuery("INSERT INTO shopping_lists (name) VALUES ($name)", { name });
 };
 
 const deactivateShoppingList = async (id) => {
-  await executeQuery("UPDATE shopping_lists SET active = false WHERE id = $1", [id]);
+  await executeQuery("UPDATE shopping_lists SET active = false WHERE id = $id", { id });
 };
-
 
 export { getActiveShoppingLists, addNewShoppingList, deactivateShoppingList };
