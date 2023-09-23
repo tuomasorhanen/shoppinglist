@@ -1,13 +1,13 @@
 # Project 1: Shared shopping list
 
-Title: Shared Shopping Lists
+## Description
+This web application is designed to help manage shared shopping lists. It allows users to create and manage multiple shopping lists and their items.
 
-Description: This web application is designed to help manage shared shopping lists. It allows users to create and manage multiple shopping lists and their items.
+## Online Deployment
+The application is deployed at [https://tuomass-shopping-list.onrender.com/](https://tuomass-shopping-list.onrender.com/)
 
-Online Deployment: The application is deployed at https://tuomass-shopping-list.onrender.com/
-
-To set up locally:
+## Local Setup
 1. Clone this repository.
 2. Navigate to the root directory.
-3. Run docker-compose up to launch the project.
-4. The application will run at http://localhost:7777.
+3. Run `docker-compose up` to launch the project.
+4. The application will run at [http://localhost:7777](http://localhost:7777).
