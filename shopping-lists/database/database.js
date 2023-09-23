@@ -18,11 +18,13 @@ const executeQuery = async (query, params) => {
 
   try {
     if (sql) {
+      console.log(`Executing query with sql: ${query}`);
       const result = await sql.query(query, ...params);
       if (result.rows) {
         response.rows = result.rows;
       }
     } else {
+      console.log(`Executing query with connectionPool: ${query}`);
       client = await connectionPool.connect();
       const result = await client.queryObject(query, params);
       if (result.rows) {
@@ -30,13 +32,14 @@ const executeQuery = async (query, params) => {
       }
     }
   } catch (e) {
+    console.error(`Database Query Error: ${e}`);
     response.error = e;
   } finally {
     if (client) {
       try {
         await client.release();
       } catch (e) {
-        console.log(e);
+        console.error(`Failed to release client: ${e}`);
       }
     }
   }
