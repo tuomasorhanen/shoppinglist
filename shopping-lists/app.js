@@ -1,5 +1,5 @@
-import { serve } from "https://deno.land/std@0.171.0/http/server.ts";
-import { configure } from "https://deno.land/x/eta@v2.0.0/mod.ts";
+import { serve } from "https://deno.land/std@0.202.0/http/server.ts";
+import { configure } from "https://deno.land/x/eta@v2.2.0/mod.ts";
 import * as indexController from "./controllers/indexController.js";
 import * as listController from "./controllers/listController.js";
 import * as itemController from "./controllers/itemController.js";
