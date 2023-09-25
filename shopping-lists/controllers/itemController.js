@@ -9,13 +9,9 @@ const responseDetails = {
 const addNewItemToList = async (request) => {
   const id = new URL(request.url).pathname.split('/')[2];
   const formData = await request.formData();
-  const itemName = formData.get("item");
-  if (itemName) {
-    await itemService.addItemToList(id, itemName);
-    return redirectTo(`/lists/${id}`);
-  } else {
-    return new Response("Invalid item name", { status: 400 });
-  }
+  const itemName = formData.get("name");
+  await itemService.addItemToList(id, itemName);
+  return redirectTo(`/lists/${id}`);
 };
 
 const markItemAsCollected = async (request) => {
